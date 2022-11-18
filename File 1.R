@@ -7,6 +7,7 @@ install.packages('microbenchmark')
 install.packages("parallel")
 install.packages("lme4")
 install.packages("modeest")
+install.packages("pastecs")
 install.packages("ggpubr")
 install.packages("ggplot2")
 install.packages("scales")
@@ -18,6 +19,7 @@ library(microbenchmark)
 library(parallel)
 library(lme4)
 library(modeest)
+library(pastecs)
 library(ggpubr)
 library(ggplot2)
 library(scales)
@@ -93,7 +95,8 @@ summary(dataBorough, digits = 1)
 
 
 
-# ******************** Descriptive Analysis ********************
+
+# ******************** Descriptive Statistics On Data ********************
 
 # Compute the modal value (mode)
 mode = mfv(dataBorough$fat)
@@ -105,14 +108,20 @@ median(dataBorough$fat)
 # Compute the mean value
 mean(dataBorough$fat)
 
+
 # Compute the minimum value
 min(dataBorough$fat)
 
 # Compute the maximum value
 max(dataBorough$fat)
 
+
 # Range
 range(dataBorough$fat)
+
+# Compute range for each column
+sapply(dataBorough[, -5], range)
+
 
 # Compute the variance
 var(dataBorough$fat)
@@ -121,42 +130,95 @@ var(dataBorough$fat)
 sd(dataBorough$fat)
 
 
-
-
-
 # Quartile
 quantile(dataBorough$fat)
-
-# Compute quartiles for each column
-sapply(dataBorough[, -5], quantile)
-
-
-# Deciles
-quantile(my_data$Sepal.Length, seq(0, 1, 0.1))
-
 
 # Interquartile
 IQR(dataBorough$fat)
 
 
-install.packages("pastecs")
-library(pastecs)
-res <- stat.desc(my_data[, -5])
+# Compute the descriptive statistics of each variable
+res <- stat.desc(dataBorough[, -5])
 round(res, 2)
 
 
 
+# ******************** Graphical Display Of Distributions ********************
+
+
+# Draw Boxplots based on the variables
+
+# Carbohydrates (carbs)
+ggboxplot(dataBorough, y = "carb", width = 0.7) + labs(x = "x", y = "Carbohydrate", title = "Box Plot of Carbohydrate")
+
+# Fat
+ggboxplot(dataBorough, y = "fat", width = 0.7) + labs(x = "x", y = "Fat", title = "Box Plot of Fat")
+
+# Protein
+ggboxplot(dataBorough, y = "protein", width = 0.7) + labs(x = "x", y = "Protein", title = "Box Plot of Protein")
+
+# Fiber
+ggboxplot(dataBorough, y = "fibre", width = 0.7) + labs(x = "x", y = "Fiber", title = "Box Plot of Fiber")
+
+# The prevalence (percentage) of obese people
+ggboxplot(dataBorough, y = "f_obese", width = 0.7) + labs(x = "x", y = "Obesity", title = "Box Plot Of Obesity")
 
 
 
-# ______________________________        ______________________________
+# Draw Histograms based on the variables
+
+# Carbohydrates (carbs)
+gghistogram(dataBorough, x = "carb", bins = 10, add = "mean") + labs(x = "Carbohydrate", y = "Frequency", title = "Histogram Of Carbohydrate")
+
+# Fat
+gghistogram(dataBorough, x = "fat", bins = 10, add = "mean") + labs(x = "Fat", y = "Frequency", title = "Histogram Of Fat")
+
+# Protein
+gghistogram(dataBorough, x = "protein", bins = 10, add = "mean") + labs(x = "Protein", y = "Frequency", title = "Histogram Of Protein")
+
+# Fiber
+gghistogram(dataBorough, x = "fibre", bins = 10, add = "mean") + labs(x = "Fiber", y = "Frequency", title = "Histogram Of Fiber")
+
+# The prevalence (percentage) of obese people
+gghistogram(dataBorough, x = "f_obese", bins = 10, add = "mean") + labs(x = "Obesity", y = "Frequency", title = "Histogram Of Obesity")
 
 
 
-Obesity
+# Empirical Cumulative Distribution Function (ECDF)
+
+# Carbohydrates (carbs)
+ggecdf(dataBorough, x = "carb") + labs(x = "Carbohydrate", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Carbohydrate")
+
+# Fat
+ggecdf(dataBorough, x = "fat") + labs(x = "Fat", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Fat")
+
+# Protein
+ggecdf(dataBorough, x = "protein") + labs(x = "Protein", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Protein")
+
+# Fiber
+ggecdf(dataBorough, x = "fibre") + labs(x = "Fiber", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Fiber")
+
+# The prevalence (percentage) of obese people
+ggecdf(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Obesity")
 
 
 
+# Draw Quantile-Quantile Plots (Q-Q Plots)
+
+# Carbohydrates (carbs)
+ggqqplot(dataBorough, x = "carb") + labs(x = "Carbohydrate", y = "Frequency", title = "Q-Q Plots Of Carbohydrate")
+
+# Fat
+ggqqplot(dataBorough, x = "fat") + labs(x = "Fat", y = "Frequency", title = "Q-Q Plots Of Fat")
+
+# Protein
+ggqqplot(dataBorough, x = "protein") + labs(x = "Protein", y = "Frequency", title = "Q-Q Plots Of Protein")
+
+# Fiber
+ggqqplot(dataBorough, x = "fibre") + labs(x = "Fiber", y = "Frequency", title = "Q-Q Plots Of Fiber")
+
+# The prevalence (percentage) of obese people
+ggqqplot(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", title = "Q-Q Plots Of Obesity")
 
 
 
