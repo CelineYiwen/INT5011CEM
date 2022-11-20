@@ -187,38 +187,57 @@ gghistogram(dataBorough, x = "f_obese", bins = 10, add = "mean") + labs(x = "Obe
 # Empirical Cumulative Distribution Function (ECDF)
 
 # Carbohydrates (carbs)
-ggecdf(dataBorough, x = "carb") + labs(x = "Carbohydrate", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Carbohydrate")
+ggecdf(dataBorough, x = "carb") + labs(x = "Carbohydrate", y = "Frequency", title = "ECDF Of Carbohydrate")
 
 # Fat
-ggecdf(dataBorough, x = "fat") + labs(x = "Fat", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Fat")
+ggecdf(dataBorough, x = "fat") + labs(x = "Fat", y = "Frequency", title = "ECDF Of Fat")
 
 # Protein
-ggecdf(dataBorough, x = "protein") + labs(x = "Protein", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Protein")
+ggecdf(dataBorough, x = "protein") + labs(x = "Protein", y = "Frequency", title = "ECDF Of Protein")
 
 # Fiber
-ggecdf(dataBorough, x = "fibre") + labs(x = "Fiber", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Fiber")
+ggecdf(dataBorough, x = "fibre") + labs(x = "Fiber", y = "Frequency", title = "ECDF Of Fiber")
 
 # The prevalence (percentage) of obese people
-ggecdf(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", title = "Empirical Cumulative Distribution Function Of Obesity")
+ggecdf(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", title = "ECDF Of Obesity")
 
 
 
 # Draw Quantile-Quantile Plots (Q-Q Plots)
 
 # Carbohydrates (carbs)
-ggqqplot(dataBorough, x = "carb") + labs(x = "Carbohydrate", y = "Frequency", title = "Q-Q Plots Of Carbohydrate")
+ggqqplot(dataBorough, x = "carb") + labs(x = "Carbohydrate", y = "Frequency", title = "Q-Q Plot Of Carbohydrate")
 
 # Fat
-ggqqplot(dataBorough, x = "fat") + labs(x = "Fat", y = "Frequency", title = "Q-Q Plots Of Fat")
+ggqqplot(dataBorough, x = "fat") + labs(x = "Fat", y = "Frequency", title = "Q-Q Plot Of Fat")
 
 # Protein
-ggqqplot(dataBorough, x = "protein") + labs(x = "Protein", y = "Frequency", title = "Q-Q Plots Of Protein")
+ggqqplot(dataBorough, x = "protein") + labs(x = "Protein", y = "Frequency", title = "Q-Q Plot Of Protein")
 
 # Fiber
-ggqqplot(dataBorough, x = "fibre") + labs(x = "Fiber", y = "Frequency", title = "Q-Q Plots Of Fiber")
+ggqqplot(dataBorough, x = "fibre") + labs(x = "Fiber", y = "Frequency", title = "Q-Q Plot Of Fiber")
 
 # The prevalence (percentage) of obese people
-ggqqplot(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", title = "Q-Q Plots Of Obesity")
+ggqqplot(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", title = "Q-Q Plot Of Obesity")
+
+
+
+
+# Multiple Linear Regression
+
+# Use dataBorough dataset
+input <- dataBorough [1:50, c("f_obese", "carb", "fat", "protein", "fibre")]
+
+# Building model
+model <- lm(f_obese ~ carb + fat + protein + fibre, data = input)
+model
+
+# Display regression model
+print(model)
+print(summary(model))
+
+# Plot the graph
+plot(model)
 
 
 
