@@ -223,23 +223,26 @@ ggqqplot(dataBorough, x = "f_obese") + labs(x = "Obesity", y = "Frequency", titl
 
 
 
-# Multiple Linear Regression
+# ******************** Correlation Test ********************
+
+# Round to three decimal places
+round(cor(dataBorough[c('f_obese', 'carb', 'fat', 'protein', 'fibre')]), digits = 3)
+
+
+
+# ******************** Multiple Linear Regression ********************
 
 # Use dataBorough dataset
-input <- dataBorough [1:50, c("f_obese", "carb", "fat", "protein", "fibre")]
+input <- dataBorough [1:50, c("f_obese", "carb", "fat")]
 
 # Building model
-model <- lm(f_obese ~ carb + fat + protein + fibre, data = input)
+model <- lm(f_obese ~ carb + fat, data = input)
 model
 
 # Display regression model
 print(model)
-print(summary(model))
+summary(model)
 
 # Plot the graph
 plot(model)
-
-
-
-
 
