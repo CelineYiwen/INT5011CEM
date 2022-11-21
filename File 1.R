@@ -99,42 +99,42 @@ summary(dataBorough, digits = 1)
 # ******************** Descriptive Statistics On Data ********************
 
 # Compute the modal value (mode)
-mode = mfv(dataBorough$fat)
+mode = mfv(dataBorough$carb)
 print(mode)
 
 # Compute the median value
-median(dataBorough$fat)
+median(dataBorough$carb)
 
 # Compute the mean value
-mean(dataBorough$fat)
+mean(dataBorough$carb)
 
 
 # Compute the minimum value
-min(dataBorough$fat)
+min(dataBorough$carb)
 
 # Compute the maximum value
-max(dataBorough$fat)
+max(dataBorough$carb)
 
 
 # Range
-range(dataBorough$fat)
+range(dataBorough$carb)
 
 # Compute range for each column
 sapply(dataBorough[, -5], range)
 
 
 # Compute the variance
-var(dataBorough$fat)
+var(dataBorough$carb)
 
 # Compute the standard deviation
-sd(dataBorough$fat)
+sd(dataBorough$carb)
 
 
 # Quartile
-quantile(dataBorough$fat)
+quantile(dataBorough$carb)
 
 # Interquartile
-IQR(dataBorough$fat)
+IQR(dataBorough$carb)
 
 
 # Compute the descriptive statistics of each variable
@@ -232,17 +232,29 @@ round(cor(dataBorough[c('f_obese', 'carb', 'fat', 'protein', 'fibre')]), digits 
 
 # ******************** Multiple Linear Regression ********************
 
-# Use dataBorough dataset
+# Use dataBorough dataset [Carbohydrate and Fat]
 input <- dataBorough [1:50, c("f_obese", "carb", "fat")]
 
-# Building model
+# Building model 1
 model <- lm(f_obese ~ carb + fat, data = input)
 model
 
-# Display regression model
+# Display regression model 1
 print(model)
+
+# View regression coefficients with standard errors, t-statistics, and p-values
+summary(model)$coefficients
+
+# View model 1 summary
 summary(model)
 
-# Plot the graph
+# Plot the graph for model 1
+par(mfrow = c(2, 2))
 plot(model)
+
+
+
+
+
+
 
